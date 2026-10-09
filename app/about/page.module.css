@@ -1,0 +1,333 @@
+.hero {
+  padding: 56px 0 120px;
+}
+
+.hero :global(.grid) {
+  row-gap: 32px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.dot {
+  color: var(--signal);
+}
+
+.lede {
+  grid-column: 1 / span 7;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
+  max-width: none;
+}
+
+/* Story */
+.story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gutter);
+  margin-top: 32px;
+}
+
+/* Photos */
+.photos {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 40px var(--gutter);
+}
+
+.photo {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wide {
+  grid-column: span 8;
+}
+
+.tall {
+  grid-column: span 4;
+}
+
+.half {
+  grid-column: span 6;
+}
+
+.photoFrame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-2);
+  border: 1px solid var(--ink);
+  overflow: hidden;
+}
+
+/* The portrait shot stretches to match the wide one beside it. */
+.tall .photoFrame {
+  aspect-ratio: auto;
+  flex: 1;
+  min-height: 320px;
+}
+
+.photoImg {
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.05);
+  transition: filter 0.4s ease;
+}
+
+.photo:hover .photoImg {
+  filter: none;
+}
+
+.photo figcaption {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-strong);
+}
+
+.caption {
+  font-size: 14px;
+  color: var(--gray-11);
+}
+
+/* Phrases */
+.phrases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--paper);
+}
+
+.phrases li {
+  font-size: clamp(36px, 6.4vw, 104px);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  padding: 24px 0 28px;
+  border-bottom: 1px solid #333;
+}
+
+.phraseLead {
+  color: #6b6b6b;
+}
+
+/* Pour */
+.pour {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gutter);
+}
+
+.pour li {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding-top: 16px;
+  border-top: 1px solid var(--ink);
+}
+
+.pourLink {
+  width: fit-content;
+  font-weight: 600;
+  border-bottom: 1px solid currentColor;
+  margin-top: 4px;
+}
+
+.pourLink:hover {
+  color: var(--signal);
+}
+
+.head {
+  margin-bottom: 56px;
+  row-gap: 16px;
+}
+
+.headLabel {
+  grid-column: 1 / span 3;
+}
+
+.headTitle {
+  grid-column: 4 / span 9;
+}
+
+.headLede {
+  margin-top: 24px;
+}
+
+/* Construction */
+.construct {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gutter);
+}
+
+.construct li {
+  display: grid;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ink);
+}
+
+.construct svg {
+  width: 100%;
+  height: auto;
+  background: var(--paper);
+}
+
+/* Marks */
+.marks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.marks li {
+  background: var(--paper);
+  padding: 20px;
+  display: grid;
+  gap: 6px;
+}
+
+.markBox {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  margin-bottom: 12px;
+}
+
+.markBox img {
+  width: 72%;
+  max-height: 72%;
+  object-fit: contain;
+}
+
+.drawing {
+  margin: 64px 0 0;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  display: grid;
+  justify-items: center;
+  padding: 0 24px 24px;
+}
+
+.drawing img {
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+}
+
+.drawing figcaption {
+  justify-self: start;
+}
+
+.markName {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Palette */
+.palette {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--gutter);
+  margin-top: 64px;
+}
+
+.swatch {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.swatch > span:first-child {
+  display: block;
+  aspect-ratio: 1;
+  border: 1px solid var(--rule-strong);
+  margin-bottom: 6px;
+}
+
+.swatch .mono {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Status */
+.status {
+  grid-column: 1 / span 5;
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.statusBody {
+  grid-column: 7 / span 6;
+  display: grid;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .lede,
+  .headLabel,
+  .headTitle,
+  .status,
+  .statusBody {
+    grid-column: 1 / -1;
+  }
+  .story {
+    grid-template-columns: 1fr;
+  }
+  .wide,
+  .tall,
+  .half {
+    grid-column: 1 / -1;
+  }
+  .tall .photoFrame {
+    aspect-ratio: 3 / 4;
+    flex: none;
+  }
+  .pour {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 40px;
+  }
+  .statusBody {
+    margin-top: 32px;
+  }
+  .construct,
+  .marks {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .construct {
+    row-gap: 32px;
+  }
+  .palette {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .pour {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Touch screens can't hover, so show the photos in colour. */
+@media (hover: none) {
+  .photoImg {
+    filter: none;
+  }
+}

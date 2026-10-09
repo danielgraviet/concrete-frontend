@@ -1,0 +1,29 @@
+.comp {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.lines {
+  mix-blend-mode: multiply;
+}
+
+.cell {
+  opacity: 0;
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cell {
+    opacity: 1;
+  }
+}
