@@ -5,11 +5,14 @@ import styles from "./page.module.css";
 import { Icon } from "@/components/Icon";
 import { BringYourOwnAI } from "@/components/BringYourOwnAI";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Download",
-  description: "Install Concrete on macOS. Requires Node.js 20 or newer.",
-};
+  description:
+    "Install Concrete on macOS in about five minutes. Runs on the AI subscription you already have.",
+  path: "/download",
+});
 
 const STEPS: { title: string; note?: string; code: string[] }[] = [
   {

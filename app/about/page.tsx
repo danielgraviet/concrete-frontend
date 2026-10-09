@@ -3,11 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
 import { Icon } from "@/components/Icon";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
-  description: "Why Concrete exists: practice that makes your understanding of CS and ACME material concrete, and the summers of concrete work behind the name.",
-};
+  description:
+    "Why Concrete exists: practice that makes your understanding of CS and ACME material concrete, and the summers of concrete work behind the name.",
+  path: "/about",
+});
 
 const PHOTOS = [
   {

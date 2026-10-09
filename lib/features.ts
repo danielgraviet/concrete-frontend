@@ -240,6 +240,7 @@ export function nextFeature(slug: FeatureSlug): Feature {
 
 export const SITE = {
   name: "Concrete",
+  url: "https://www.useconcrete.app",
   tagline: "Practice from your own course material.",
   github: "https://github.com/danielgraviet/concrete",
   issues: "https://github.com/danielgraviet/concrete/issues/new",

@@ -3,12 +3,14 @@ import { CodeLine } from "@/components/CodeLine";
 import { Icon } from "@/components/Icon";
 import { SITE } from "@/lib/features";
 import styles from "./page.module.css";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contribute",
   description:
     "Concrete is open source and built together. Review code, ship features students use, and work on open problems: cloud sync, sharing, model evals, LLM-as-judge grading, and learning as an RL problem.",
-};
+  path: "/contribute",
+});
 
 const WHY = [
   {

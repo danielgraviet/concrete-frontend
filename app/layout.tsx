@@ -17,21 +17,28 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? new URL(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
-    : undefined,
+  // Absolute URLs for link previews (Slack, iMessage, X) must point at the real domain.
+  metadataBase: new URL(SITE.url),
   title: {
-    default: "Concrete — Make your understanding concrete",
+    default: "Concrete — Make your understanding concrete before the exam",
     template: "%s — Concrete",
   },
   description:
-    "Turn your CS and ACME notes into quizzes, code-reading practice, and flashcards. Find the gaps and review them before the exam, the interview, or the deadline.",
+    "Turn your CS and ACME notes into quizzes, code-reading practice, and flashcards. Find the gaps before the exam, the interview, or the deadline.",
   applicationName: SITE.name,
   openGraph: {
     type: "website",
     siteName: SITE.name,
-    title: "Concrete",
-    description: "Practice from your own course material: quizzes, code reading, and spaced flashcards.",
+    url: "/",
+    title: "Concrete — Make your understanding concrete before the exam",
+    description:
+      "Quizzes, code-reading practice, and flashcards from your own CS and ACME notes. Runs on the AI subscription you already have. Free and open source.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Concrete — Make your understanding concrete before the exam",
+    description:
+      "Quizzes, code-reading practice, and flashcards from your own CS and ACME notes. Free and open source.",
   },
 };
 
