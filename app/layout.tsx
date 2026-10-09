@@ -21,17 +21,17 @@ export const metadata: Metadata = {
     ? new URL(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
     : undefined,
   title: {
-    default: "Concrete — Learn STEM from your own notes",
+    default: "Concrete — Make your understanding concrete",
     template: "%s — Concrete",
   },
   description:
-    "Concrete is a local-first STEM learning workspace for Markdown notes, grounded quizzes, tutoring, spaced repetition, runnable code, and progress tracking.",
+    "Turn your CS and ACME notes into quizzes, code-reading practice, and flashcards. Find the gaps and review them before the exam, the interview, or the deadline.",
   applicationName: SITE.name,
   openGraph: {
     type: "website",
     siteName: SITE.name,
     title: "Concrete",
-    description: "Write STEM notes locally, generate grounded quizzes, run code, and build durable understanding.",
+    description: "Practice from your own course material: quizzes, code reading, and spaced flashcards.",
   },
 };
 

@@ -1,11 +1,11 @@
 export type FeatureSlug =
-  | "notes"
   | "quizzes"
+  | "flashcards"
+  | "progress"
   | "tutor"
-  | "review"
+  | "material"
   | "agents"
-  | "sandbox"
-  | "progress";
+  | "sandbox";
 
 /** Geometric glyph drawn for each feature, built from the square module of the mark. */
 export type Glyph =
@@ -19,6 +19,8 @@ export type Glyph =
 
 export type Feature = {
   slug: FeatureSlug;
+  /** "core" features are the learning tools in the main nav; "extra" ones live in the footer. */
+  group: "core" | "extra";
   index: string;
   name: string;
   glyph: Glyph;
@@ -34,70 +36,99 @@ export type Feature = {
 
 export const FEATURES: Feature[] = [
   {
-    slug: "notes",
+    slug: "quizzes",
+    group: "core",
     index: "01",
-    name: "Notes",
-    glyph: "square",
-    summary: "Plain Markdown, kept on your Mac.",
-    headline: "Notes stay yours.",
-    lede: "Write in ordinary Markdown files that live in a folder on your Mac. Organize topics into folders, link related ideas, and edit checklists, math and code in place. The files open in any other editor.",
-    media: { src: "/media/notes.gif", alt: "Browsing folders and editing a note in Concrete" },
+    name: "Quizzes",
+    glyph: "triangle",
+    summary: "Exam-style questions from your own course material.",
+    headline: "Practice like it counts.",
+    lede: "Pick one or more notes, or a PDF and a page range, and generate a quiz from it. Answer multiple-choice, cloze, open-response, and code-reading questions, then see what held up.",
+    media: { src: "/media/quiz.gif", alt: "Generating a quiz from a note and choosing an answer" },
     specs: [
-      { label: "Format", value: "Plain .md files" },
-      { label: "Location", value: "~/Documents/Concrete" },
-      { label: "Links", value: "[[Wikilinks]] + backlinks" },
-      { label: "Export", value: "PDF" },
+      { label: "Question types", value: "MCQ · Cloze · Open · Code reading" },
+      { label: "Sources", value: "Notes + PDFs, by page range" },
+      { label: "Code questions", value: "Output · Bug · Complexity · Scale" },
+      { label: "Saved as", value: "Files in your vault" },
     ],
     steps: [
-      { title: "Write", body: "A fast editor for prose, LaTeX math, fenced code, and checklists that you can tick in place." },
-      { title: "Link", body: "Connect concepts with [[wikilinks]]. Backlinks and a note graph show how ideas relate." },
-      { title: "Find", body: "A search palette indexes the whole vault, with in-file find for long notes." },
+      { title: "Select", body: "Choose the notes and PDFs to practice from. Narrow a PDF to the pages your exam covers." },
+      { title: "Generate", body: "Concrete drafts questions grounded in that material: recall, explanation, and code reading." },
+      { title: "Answer", body: "Take the quiz in the app. Open answers are scored against the key points a strong answer covers." },
     ],
     details: [
-      { title: "Local-first", body: "Concrete has no account and no cloud sync. Your vault is a folder on disk, so you can back it up, version it with git, or sync it however you like." },
-      { title: "Portable", body: "Concrete has no proprietary format. Quizzes and flashcards are stored next to your notes as files you can read." },
-      { title: "Built for STEM", body: "Math, code, and PDFs sit beside your prose, so one course can live in one place." },
+      { title: "Code reading, not just recall", body: "Predict the output, find the bug, state the complexity, or explain what happens as the input grows. When a code runner is set up, predicted outputs are checked by running the code." },
+      { title: "Grounded in your material", body: "Questions come from your notes and PDFs, so they use your course's notation and stay inside its scope." },
+      { title: "Yours to keep", body: "Quizzes are saved as files in your vault, so you can review, edit, and retake them as the exam gets closer." },
     ],
   },
   {
-    slug: "quizzes",
+    slug: "flashcards",
+    group: "core",
     index: "02",
-    name: "Quizzes",
-    glyph: "triangle",
-    summary: "Practice generated from the note you are reading.",
-    headline: "Practice what you learn.",
-    lede: "Generate a quiz from the note you have open. Answer multiple-choice, cloze, open, and code questions without leaving the app, then get graded with feedback that points back to the source.",
-    media: { src: "/media/quiz.gif", alt: "Generating a quiz from a note and choosing an answer" },
+    name: "Flashcards",
+    glyph: "half",
+    summary: "Recall cards in your notes, on a spaced schedule.",
+    headline: "Make it stick.",
+    lede: "Write recall cards right in your notes and review them in a spaced queue. Concrete schedules every card with FSRS, the algorithm Anki now uses by default.",
     specs: [
-      { label: "Question types", value: "MCQ · Cloze · Open · Code" },
-      { label: "Source", value: "Your current notes" },
-      { label: "Grading", value: "In-app, with feedback" },
-      { label: "Storage", value: "Saved in your vault" },
+      { label: "Scheduler", value: "FSRS" },
+      { label: "Cards", value: "Live in your notes" },
+      { label: "Ratings", value: "Again · Hard · Good · Easy" },
+      { label: "Decks", value: "By folder, tag, or note" },
     ],
     steps: [
-      { title: "Select", body: "Choose a note, or several, as the source material." },
-      { title: "Generate", body: "The model drafts questions grounded in that text, and multiple-choice options are shuffled and rebalanced." },
-      { title: "Answer", body: "Take the quiz in place. Open and code answers are graded with written feedback." },
+      { title: "Write", body: "Add cards to a note as you study, or generate them from it." },
+      { title: "Review", body: "Each day, review only the cards that are due." },
+      { title: "Rate", body: "Rate your recall. FSRS updates the card and picks its next interval." },
     ],
     details: [
-      { title: "Grounded", body: "Questions come from your material, not from whatever a model happens to remember about the topic." },
-      { title: "Mixed formats", body: "Retrieval works best with variety: recognition, recall, explanation, and application." },
-      { title: "Repeatable", body: "Quizzes are saved, so you can retake them and watch your score change." },
+      { title: "Modern scheduling", body: "FSRS models how stable each memory is and how hard each card is, so you spend less time on what you already know." },
+      { title: "Cards live with notes", body: "A card sits in the note it came from, so its context is always one click away." },
+      { title: "Quiz or review", body: "Switch between quiz practice and flashcard review from the same panel." },
+    ],
+  },
+  {
+    slug: "progress",
+    group: "core",
+    index: "03",
+    name: "Progress",
+    glyph: "bars",
+    summary: "Find weak spots while there's still time.",
+    headline: "Find the gaps early.",
+    lede: "After each quiz, see your score and a breakdown by skill. Over time, quiz history and trends show which topics are solid and which need another pass.",
+    media: { src: "/media/progress.gif", alt: "Learning progress after finishing a quiz" },
+    specs: [
+      { label: "Per quiz", value: "Score + skill breakdown" },
+      { label: "Over time", value: "History + trends" },
+      { label: "Habit", value: "Streaks + daily activity" },
+      { label: "Saved", value: "Every quiz result" },
+    ],
+    steps: [
+      { title: "Finish", body: "Complete a quiz." },
+      { title: "Inspect", body: "See which skills held up and which didn't." },
+      { title: "Return", body: "Go back to the material behind your weakest skills, then quiz again." },
+    ],
+    details: [
+      { title: "Skill-level", body: "A 70% score is more useful when you can see exactly what the missing 30% was." },
+      { title: "Trends", body: "Quiz history shows whether a topic is actually improving, not just whether you studied it." },
+      { title: "Evolving", body: "Learning analytics are under active development. Expect this view to grow." },
     ],
   },
   {
     slug: "tutor",
-    index: "03",
+    group: "core",
+    index: "04",
     name: "Tutor",
     glyph: "circle",
-    summary: "Ask about the note that's open.",
-    headline: "Ask better questions.",
-    lede: "Ask the tutor about the note in front of you. Explanations stay grounded in the material you are studying, so the answer matches your course's notation and scope.",
+    summary: "Ask about the note you're studying.",
+    headline: "Get unstuck.",
+    lede: "Ask the tutor about the note in front of you. Explanations stay grounded in your material, so the answer matches your course's notation and scope.",
     media: { src: "/media/tutor.gif", alt: "Asking the study tutor about the open note" },
     specs: [
       { label: "Context", value: "The open note" },
-      { label: "Providers", value: "Claude Code · Codex · OpenRouter" },
-      { label: "Auth", value: "CLI login or API key" },
+      { label: "Runs on", value: "Your Claude or ChatGPT plan" },
+      { label: "Or", value: "OpenRouter, pay per use" },
       { label: "Keys", value: "Kept in the main process" },
     ],
     steps: [
@@ -106,39 +137,42 @@ export const FEATURES: Feature[] = [
       { title: "Keep", body: "Copy the parts worth keeping into your note, in your own words." },
     ],
     details: [
-      { title: "Bring your own model", body: "Use the Claude Code or Codex CLI you are already logged in to, or an OpenRouter key." },
+      { title: "No new AI bill", body: "The tutor runs on the Claude or ChatGPT subscription you already pay for, through the Claude Code or Codex CLI. Or use OpenRouter and pay a few cents for a fast model." },
       { title: "Scoped", body: "Answers are anchored to the note, which keeps explanations from drifting off-syllabus." },
       { title: "Private by default", body: "API keys never reach the renderer. They stay in Electron's main process." },
     ],
   },
   {
-    slug: "review",
-    index: "04",
-    name: "Review",
-    glyph: "half",
-    summary: "Flashcards with spaced repetition.",
-    headline: "Make it stick.",
-    lede: "Turn notes into flashcards and review them on a schedule. Concrete uses the FSRS algorithm to space each card based on how well you remembered it last time.",
+    slug: "material",
+    group: "core",
+    index: "05",
+    name: "Material",
+    glyph: "square",
+    summary: "Notes, math, code, and PDFs: the source for every quiz.",
+    headline: "Bring what you have.",
+    lede: "Concrete works from the course material you already have. Keep lecture notes, math, code, and PDFs together, organized by course. Everything you practice is generated from it.",
+    media: { src: "/media/notes.gif", alt: "Browsing folders and editing a note in Concrete" },
     specs: [
-      { label: "Scheduler", value: "FSRS" },
-      { label: "Ratings", value: "Again · Hard · Good · Easy" },
-      { label: "Cards", value: "Created from notes" },
-      { label: "Decks", value: "By folder, tag, or note" },
+      { label: "Formats", value: "Markdown · LaTeX · Code · PDF" },
+      { label: "Organized", value: "One folder per course" },
+      { label: "Links", value: "[[Wikilinks]] + backlinks" },
+      { label: "Files", value: "Plain Markdown, no lock-in" },
     ],
     steps: [
-      { title: "Create", body: "Generate cards from a note, or write them yourself in the card editor." },
-      { title: "Review", body: "Each day, review only the cards that are due." },
-      { title: "Rate", body: "Rate your recall. FSRS updates the card's stability and picks the next interval." },
+      { title: "Collect", body: "Add lecture PDFs and write notes, with math, code, and checklists in place." },
+      { title: "Organize", body: "One folder per course. Link related ideas with [[wikilinks]]." },
+      { title: "Practice", body: "Select any of it as the source for a quiz or a set of flashcards." },
     ],
     details: [
-      { title: "Modern scheduling", body: "FSRS models memory stability and difficulty per card, so you do fewer reviews to reach the same retention." },
-      { title: "Cards live with notes", body: "Each card stays linked to its source note, so the context is always one click away." },
-      { title: "Quiz or review", body: "Switch between quiz mode and flashcard review from the same panel." },
+      { title: "No lock-in", body: "Notes are ordinary Markdown files, so you can back them up, version them with git, or open them in another editor." },
+      { title: "Connected", body: "Link related ideas with [[wikilinks]] and follow backlinks, so a course reads as one body of knowledge." },
+      { title: "Built for technical material", body: "Math, code, and PDFs sit beside your prose, so one course lives in one place." },
     ],
   },
   {
     slug: "agents",
-    index: "05",
+    group: "extra",
+    index: "06",
     name: "Agents",
     glyph: "cc",
     summary: "Codex or Claude agents that work in your vault.",
@@ -157,13 +191,14 @@ export const FEATURES: Feature[] = [
     ],
     details: [
       { title: "Works on files", body: "Agents operate on the same Markdown you edit, with no hidden database to fall out of sync." },
-      { title: "Local trajectories", body: "Agent runs are saved as JSONL in ~/Documents/Concrete/agent-trajectories/, outside the vault view." },
-      { title: "Research-ready", body: "Trajectories are kept for later analysis and possible fine-tuning. They stay on your machine." },
+      { title: "Every run logged", body: "Agent runs are saved as JSONL trajectories, outside the vault view, so you can see exactly what happened." },
+      { title: "Research-ready", body: "Trajectories are kept for later analysis and possible fine-tuning." },
     ],
   },
   {
     slug: "sandbox",
-    index: "06",
+    group: "extra",
+    index: "07",
     name: "Sandbox",
     glyph: "quarter",
     summary: "Run code snippets right inside a note.",
@@ -182,37 +217,14 @@ export const FEATURES: Feature[] = [
     ],
     details: [
       { title: "Safe by design", body: "Snippets run in a container, away from your files and system, so a bad loop can't hurt anything." },
-      { title: "Clean notes", body: "Outputs aren't written to disk automatically, so your Markdown stays readable." },
+      { title: "Checks quiz answers", body: "The same runner executes predict-output quiz questions, so their answers come from real output." },
       { title: "Pluggable runners", body: "Runners are pluggable. Docker and Daytona ship today, and more backends can be added." },
     ],
   },
-  {
-    slug: "progress",
-    index: "07",
-    name: "Progress",
-    glyph: "bars",
-    summary: "Scores, skills, and streaks over time.",
-    headline: "See it build.",
-    lede: "After a quiz, see your score, a breakdown by skill, and recent activity. Over weeks, the history shows which topics are solid and which need another pass.",
-    media: { src: "/media/progress.gif", alt: "Learning progress after finishing a quiz" },
-    specs: [
-      { label: "Per quiz", value: "Score + skill breakdown" },
-      { label: "Over time", value: "Trends + streaks" },
-      { label: "Activity", value: "Daily history" },
-      { label: "Data", value: "Local to your Mac" },
-    ],
-    steps: [
-      { title: "Finish", body: "Complete a quiz or a review session." },
-      { title: "Inspect", body: "See which skills held up and which didn't." },
-      { title: "Return", body: "Go back to the notes behind your weakest skills." },
-    ],
-    details: [
-      { title: "Skill-level", body: "Questions are tagged by skill, so a 70% score tells you exactly what the missing 30% was." },
-      { title: "Streaks", body: "A small daily habit adds up. The streak counter keeps it visible." },
-      { title: "Evolving", body: "Learning analytics are under active development. Expect this view to grow." },
-    ],
-  },
 ];
+
+export const CORE = FEATURES.filter((f) => f.group === "core");
+export const EXTRAS = FEATURES.filter((f) => f.group === "extra");
 
 export function getFeature(slug: FeatureSlug): Feature {
   const feature = FEATURES.find((f) => f.slug === slug);
@@ -220,15 +232,22 @@ export function getFeature(slug: FeatureSlug): Feature {
   return feature;
 }
 
+/** Next page in reading order: core features loop, extras lead back to the first core one. */
 export function nextFeature(slug: FeatureSlug): Feature {
-  const i = FEATURES.findIndex((f) => f.slug === slug);
-  return FEATURES[(i + 1) % FEATURES.length];
+  const i = CORE.findIndex((f) => f.slug === slug);
+  return i === -1 ? CORE[0] : CORE[(i + 1) % CORE.length];
 }
 
 export const SITE = {
   name: "Concrete",
-  tagline: "A local-first Markdown workspace for learning STEM.",
+  tagline: "Practice from your own course material.",
   github: "https://github.com/danielgraviet/concrete",
   issues: "https://github.com/danielgraviet/concrete/issues/new",
+  openIssues: "https://github.com/danielgraviet/concrete/issues",
+  goodFirstIssues: "https://github.com/danielgraviet/concrete/labels/good%20first%20issue",
+  contributing: "https://github.com/danielgraviet/concrete#contributing",
+  learningVision: "https://github.com/danielgraviet/concrete/blob/main/docs/LEARNING_POLICY_VISION.md",
   version: "0.1.2",
+  /** Update by hand as the project grows. */
+  stats: { contributors: 6, stars: 4, forks: 5 },
 };

@@ -1,0 +1,93 @@
+.head {
+  margin-bottom: 56px;
+  row-gap: 16px;
+}
+
+.headLabel {
+  grid-column: 1 / span 3;
+}
+
+.headTitle {
+  grid-column: 4 / span 9;
+}
+
+.lede {
+  margin-top: 24px;
+}
+
+.options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gutter);
+}
+
+.option {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding-top: 16px;
+  border-top: 1px solid var(--paper);
+}
+
+.plan {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+
+.quote {
+  margin: 80px 0 0;
+  padding: 40px 0 0;
+  border-top: 1px solid #333;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 24px;
+}
+
+.quote > p {
+  grid-column: 1 / span 3;
+}
+
+.quote blockquote {
+  grid-column: 4 / span 9;
+  margin: 0;
+  font-size: clamp(28px, 3.4vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.quote figcaption {
+  grid-column: 4 / span 9;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 15px;
+}
+
+.quote figcaption span {
+  color: var(--gray-8);
+}
+
+@media (max-width: 900px) {
+  .headLabel,
+  .headTitle,
+  .quote > p,
+  .quote blockquote,
+  .quote figcaption {
+    grid-column: 1 / -1;
+  }
+  .options {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .quote {
+    margin-top: 56px;
+  }
+}

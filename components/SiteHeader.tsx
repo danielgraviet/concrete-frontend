@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FEATURES } from "@/lib/features";
+import { CORE, EXTRAS } from "@/lib/features";
 import styles from "./SiteHeader.module.css";
 
 export function SiteHeader() {
@@ -29,7 +29,7 @@ export function SiteHeader() {
         </Link>
 
         <nav className={styles.nav} aria-label="Features">
-          {FEATURES.map((f) => {
+          {CORE.map((f) => {
             const active = pathname === `/${f.slug}`;
             return (
               <Link
@@ -47,9 +47,12 @@ export function SiteHeader() {
 
         <div className={styles.end}>
           <Link
-            href="/about"
-            className={`${styles.link} ${styles.about} ${pathname === "/about" ? styles.active : ""}`}
+            href="/contribute"
+            className={`${styles.link} ${styles.about} ${pathname === "/contribute" ? styles.active : ""}`}
           >
+            Contribute
+          </Link>
+          <Link href="/about" className={`${styles.link} ${styles.secondary} ${pathname === "/about" ? styles.active : ""}`}>
             About
           </Link>
           <Link href="/download" className={styles.cta}>
@@ -72,7 +75,7 @@ export function SiteHeader() {
         <div className="wrap">
           <p className="label">Index</p>
           <ul className={styles.menuList}>
-            {FEATURES.map((f) => (
+            {[...CORE, ...EXTRAS].map((f) => (
               <li key={f.slug}>
                 <Link href={`/${f.slug}`} className={styles.menuItem}>
                   <span className="index">{f.index}</span>
@@ -81,14 +84,20 @@ export function SiteHeader() {
               </li>
             ))}
             <li>
-              <Link href="/about" className={styles.menuItem}>
+              <Link href="/contribute" className={styles.menuItem}>
                 <span className="index">08</span>
+                <span className={styles.menuName}>Contribute</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className={styles.menuItem}>
+                <span className="index">09</span>
                 <span className={styles.menuName}>About</span>
               </Link>
             </li>
             <li>
               <Link href="/download" className={styles.menuItem}>
-                <span className="index">09</span>
+                <span className="index">10</span>
                 <span className={styles.menuName}>Download</span>
               </Link>
             </li>

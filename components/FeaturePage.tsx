@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { FEATURES, getFeature, nextFeature, type FeatureSlug } from "@/lib/features";
+import { CORE, getFeature, nextFeature, type FeatureSlug } from "@/lib/features";
 import { Glyph } from "./Glyph";
 import { Frame, Specimen } from "./Specimen";
 import styles from "./FeaturePage.module.css";
+import { Icon } from "@/components/Icon";
 
 export function FeaturePage({ slug }: { slug: FeatureSlug }) {
   const f = getFeature(slug);
@@ -15,7 +16,9 @@ export function FeaturePage({ slug }: { slug: FeatureSlug }) {
         <div className="wrap">
           <div className={styles.meta}>
             <span className="index">
-              {f.index} / {String(FEATURES.length).padStart(2, "0")}
+              {f.group === "core"
+                ? `${f.index} / ${String(CORE.length).padStart(2, "0")}`
+                : "Also in Concrete"}
             </span>
             <nav className="label" aria-label="Breadcrumb">
               <Link href="/" className={styles.crumb}>
@@ -122,7 +125,7 @@ export function FeaturePage({ slug }: { slug: FeatureSlug }) {
           <div>
             <p className="label">Next — {next.index}</p>
             <p className={`h1 ${styles.nextName}`}>
-              {next.name} <span className={styles.nextArrow}>→</span>
+              {next.name} <span className={styles.nextArrow}><Icon name="arrow" /></span>
             </p>
             <p className={styles.nextSummary}>{next.summary}</p>
           </div>

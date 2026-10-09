@@ -59,6 +59,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: "ss01", "cv11";
+  /* Prefer text glyphs over colour emoji for any symbol characters. */
+  font-variant-emoji: text;
   overflow-x: hidden;
 }
 

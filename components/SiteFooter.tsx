@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { FEATURES, SITE } from "@/lib/features";
+import { CORE, EXTRAS, SITE } from "@/lib/features";
 import styles from "./SiteFooter.module.css";
+import { Icon } from "@/components/Icon";
 
 export function SiteFooter() {
   return (
@@ -12,9 +13,9 @@ export function SiteFooter() {
           </div>
 
           <div className={styles.col}>
-            <p className="label">Features</p>
+            <p className="label">Practice</p>
             <ul>
-              {FEATURES.map((f) => (
+              {CORE.map((f) => (
                 <li key={f.slug}>
                   <Link href={`/${f.slug}`}>
                     <span className={styles.num}>{f.index}</span>
@@ -28,6 +29,14 @@ export function SiteFooter() {
           <div className={styles.col}>
             <p className="label">Concrete</p>
             <ul>
+              {EXTRAS.map((f) => (
+                <li key={f.slug}>
+                  <Link href={`/${f.slug}`}>{f.name}</Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/contribute">Contribute</Link>
+              </li>
               <li>
                 <Link href="/about">About</Link>
               </li>
@@ -36,12 +45,12 @@ export function SiteFooter() {
               </li>
               <li>
                 <a href={SITE.github} target="_blank" rel="noreferrer">
-                  GitHub ↗
+                  GitHub <Icon name="external" />
                 </a>
               </li>
               <li>
                 <a href={SITE.issues} target="_blank" rel="noreferrer">
-                  Report a bug ↗
+                  Report a bug <Icon name="external" />
                 </a>
               </li>
             </ul>

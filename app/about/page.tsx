@@ -1,54 +1,63 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { SITE } from "@/lib/features";
 import styles from "./page.module.css";
+import { Icon } from "@/components/Icon";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Summers pouring concrete in the Treasure Valley, a word that stuck, and the product it was waiting for.",
+  description: "Why Concrete exists: practice that makes your understanding of CS and ACME material concrete, and the summers of concrete work behind the name.",
 };
 
 const PHOTOS = [
   {
-    n: "01",
-    slot: "wide",
     src: "/media/bailey-construction-team.webp",
     alt: "Four members of the crew standing in front of a work truck and equipment trailer at dawn",
     caption: "The crew, early morning, before a pour.",
-    sizes: "(max-width: 900px) 100vw, 66vw",
   },
   {
-    n: "02",
-    slot: "tall",
     src: "/media/first-patio.webp",
     alt: "A freshly poured concrete patio still in its wooden forms, with tools scattered on the grass",
     caption: "My first patio, forms still on.",
-    sizes: "(max-width: 900px) 100vw, 33vw",
   },
   {
-    n: "03",
-    slot: "half",
     src: "/media/concrete-cole-backyard.webp",
     alt: "Two workers screeding wet concrete under a covered backyard patio",
     caption: "Screeding a backyard patio with Cole.",
-    sizes: "(max-width: 900px) 100vw, 50vw",
   },
   {
-    n: "04",
-    slot: "half",
     src: "/media/boise-house-concrete-driveway.webp",
     alt: "A newly finished concrete driveway and walkway in front of a white house",
     caption: "A finished driveway in Boise.",
-    sizes: "(max-width: 900px) 100vw, 50vw",
   },
 ] as const;
 
 const POUR = [
-  { step: "Set the forms", body: "Give the material a shape. Notes, folders, and links.", feature: "Notes", href: "/notes" },
+  { step: "Set the forms", body: "Give the material a shape. Notes, folders, and links.", feature: "Material", href: "/material" },
   { step: "Place it", body: "Work the material in. Quizzes pull it out of your head and back onto the page.", feature: "Quizzes", href: "/quizzes" },
   { step: "Finish it", body: "Smooth the rough spots. Ask the tutor until the explanation holds.", feature: "Tutor", href: "/tutor" },
-  { step: "Let it cure", body: "Strength comes with time. Spaced review keeps it setting.", feature: "Review", href: "/review" },
+  { step: "Let it cure", body: "Strength comes with time. Spaced review keeps it setting.", feature: "Flashcards", href: "/flashcards" },
+];
+
+const VALUES = [
+  {
+    title: "Code you can trace",
+    body: "Predict the output, find the bug, state the complexity. Practice reading code the way exams and interviews ask.",
+    feature: "Quizzes",
+    href: "/quizzes",
+  },
+  {
+    title: "Definitions you can recall",
+    body: "Keep theorems, algorithms, and key facts on a spaced schedule so they're there when you need them.",
+    feature: "Flashcards",
+    href: "/flashcards",
+  },
+  {
+    title: "Gaps you can see",
+    body: "A skill-by-skill breakdown after every quiz shows exactly where to spend your next hour.",
+    feature: "Progress",
+    href: "/progress",
+  },
 ];
 
 const MARKS = [
@@ -107,91 +116,93 @@ export default function AboutPage() {
       <section className={styles.hero}>
         <div className="wrap grid">
           <p className={`label ${styles.full}`}>About</p>
-          <h1 className={`display ${styles.full}`}>
-            Make it concrete<span className={styles.dot}>.</span>
+          <h1 className={`${styles.full} ${styles.phrases}`}>
+            {["example", "implementation", "understanding"].map((word, i) => (
+              <span key={word} className={i === 2 ? styles.phraseKey : undefined}>
+                <span className={styles.phraseLead}>a concrete </span>
+                {word}
+                <span className={styles.dot}>.</span>
+              </span>
+            ))}
           </h1>
-          <p className={`lede ${styles.lede}`}>Before Concrete was software, it was summers "slinging mud".</p>
+          <p className={`lede ${styles.lede}`}>
+            Concrete means something you can stand on: specific, tested, real. That&apos;s what your understanding
+            needs to be before an exam, an interview, or a deadline.
+          </p>
         </div>
       </section>
 
-      {/* ── Summers ─────────────────────────────────────── */}
-      <section className="section">
+      {/* ── Who it's for ────────────────────────────────── */}
+      <section className="section section--chrome">
         <div className="wrap">
           <div className={`grid ${styles.head}`}>
-            <p className={`label ${styles.headLabel}`}>01 / Summers</p>
+            <p className={`label ${styles.headLabel}`}>01 / Why I built it</p>
             <div className={styles.headTitle}>
-              <h2 className="h2">Hard but satisfying work. Like most things.</h2>
+              <h2 className="h2">Valuable knowledge is concrete knowledge.</h2>
               <div className={styles.story}>
                 <p className="body">
-                  Every summer in high school I poured concrete around the Treasure Valley with my best friend, Cole,
-                  his dad, and his brother. We started early, pushed heavy wheelbarrows, and worked fast.
+                  I study engineering, and I use Concrete every day. Today we can learn almost anything, but the
+                  knowledge that&apos;s actually valuable is concrete: you can remember it, apply it, and build on it.
                 </p>
                 <p className="body">
-                  It was hard work, but it built character. It was also a lot of fun. It was cool to see something in
-                  the real world that you built, and that was built to last.
+                  That&apos;s hard to get from just taking a class. I&apos;d learn an algorithm, a design pattern, a
+                  proof, or a new language&apos;s syntax, move on, and forget it weeks later. What made it stick was quizzing myself and reviewing it over time. Concrete
+                  does that with your CS and ACME material, so you find the gaps while there&apos;s still time.
                 </p>
               </div>
             </div>
           </div>
-
-          <div className={styles.photos}>
-            {PHOTOS.map((p) => (
-              <figure key={p.src} className={`${styles.photo} ${styles[p.slot]}`}>
-                <div className={styles.photoFrame}>
-                  <Image src={p.src} alt={p.alt} fill sizes={p.sizes} className={styles.photoImg} />
-                </div>
-                <figcaption>
-                  <span className="index">{p.n}</span>
-                  <span className={styles.caption}>{p.caption}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── The word ────────────────────────────────────── */}
-      <section className="section section--ink">
-        <div className="wrap">
-          <div className={`grid ${styles.head}`}>
-            <p className={`label ${styles.headLabel}`}>02 / The word</p>
-            <div className={styles.headTitle}>
-              <p className="lede">
-                Then I went to school and studied engineering. The concrete work ended, but the word stuck with me.
-                Concrete means something you can stand on: specific, tested, real.
-              </p>
-            </div>
-          </div>
-          <ul className={styles.phrases}>
-            {["a concrete example", "a concrete implementation", "a concrete understanding"].map((ph) => (
-              <li key={ph}>
-                <span className={styles.phraseLead}>{ph.replace(/ \w+$/, "")} </span>
-                {ph.split(" ").pop()}
-                <span className={styles.dot}>.</span>
+          <ul className={styles.values}>
+            {VALUES.map((v, i) => (
+              <li key={v.title}>
+                <span className="index">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="h3">{v.title}</h3>
+                <p className="body">{v.body}</p>
+                <Link href={v.href} className={styles.pourLink}>
+                  {v.feature} <Icon name="arrow" />
+                </Link>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* ── The product ─────────────────────────────────── */}
+      {/* ── Why the name ────────────────────────────────── */}
       <section className="section">
         <div className="wrap">
-          <div className={`grid ${styles.head}`}>
-            <p className={`label ${styles.headLabel}`}>03 / The product</p>
-            <div className={styles.headTitle}>
-              <h2 className="h2">Why the name Concrete?</h2>
-              <div className={styles.story}>
-                <p className="body">
-                  For years Concrete was a word I liked, waiting for something that deserved it. This app is that
-                  thing: a place where loose notes harden into understanding you can build on.
-                </p>
-                <p className="body">
-                  Learning works a lot like a pour. You set the forms, place the material, finish it, and give it time
-                  to cure.
-                </p>
-              </div>
+          <div className={`grid ${styles.nameGrid}`}>
+            <div className={styles.nameText}>
+              <p className="label">02 / Why the name Concrete?</p>
+              <h2 className="h2">Hard but satisfying work. Like most things.</h2>
+              <p className="body">
+                Every summer in high school I poured concrete around the Treasure Valley with my best friend, Cole,
+                his dad, and his brother. We started early, pushed heavy wheelbarrows, and worked fast.
+              </p>
+              <p className="body">
+                It was hard work, but it built character. It was also a lot of fun. It was cool to see something in
+                the real world that you built, and that was built to last.
+              </p>
+              <p className="body">
+                Then I went to school to study engineering. The concrete work ended, but the word stuck with me.
+                For years it was a word I liked, waiting for something that deserved it. This app is that thing.
+              </p>
             </div>
+            <ul className={styles.thumbs}>
+              {PHOTOS.map((p) => (
+                <li key={p.src}>
+                  <figure className={styles.thumb}>
+                    <div className={styles.thumbFrame}>
+                      <Image src={p.src} alt={p.alt} fill sizes="(max-width: 900px) 50vw, 20vw" className={styles.photoImg} />
+                    </div>
+                    <figcaption>{p.caption}</figcaption>
+                  </figure>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={`grid ${styles.pourHead}`}>
+            <p className={`label ${styles.headLabel}`}>Learning is a lot like a pour</p>
           </div>
           <ol className={styles.pour}>
             {POUR.map((s, i) => (
@@ -200,7 +211,7 @@ export default function AboutPage() {
                 <p className="h3">{s.step}</p>
                 <p className="body">{s.body}</p>
                 <Link href={s.href} className={styles.pourLink}>
-                  {s.feature} →
+                  {s.feature} <Icon name="arrow" />
                 </Link>
               </li>
             ))}
@@ -281,11 +292,11 @@ export default function AboutPage() {
               polish, and testing all help. You don&apos;t need to be an expert in Electron or AI.
             </p>
             <div className="btn-row">
-              <a href={SITE.github} className="btn btn--line" target="_blank" rel="noreferrer">
-                Contribute on GitHub <span className="arrow">↗</span>
-              </a>
+              <Link href="/contribute" className="btn btn--line">
+                Contribute <span className="arrow"><Icon name="arrow" /></span>
+              </Link>
               <Link href="/download" className="btn btn--solid">
-                Download <span className="arrow">→</span>
+                Download <span className="arrow"><Icon name="arrow" /></span>
               </Link>
             </div>
           </div>

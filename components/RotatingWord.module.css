@@ -1,0 +1,23 @@
+.slot {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  /* room for descenders inside the clipped slot */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.word {
+  display: inline-block;
+  color: var(--signal);
+  animation: in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

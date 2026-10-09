@@ -1,16 +1,17 @@
 import type { FeatureSlug } from "@/lib/features";
 import s from "./Specimen.module.css";
+import { Icon } from "@/components/Icon";
 
 /** Illustrative mock-ups of each feature, drawn in the app's Concrete theme. */
 export function Specimen({ slug }: { slug: FeatureSlug }) {
   switch (slug) {
-    case "notes":
+    case "material":
       return <NotesSpecimen />;
     case "quizzes":
       return <QuizSpecimen />;
     case "tutor":
       return <TutorSpecimen />;
-    case "review":
+    case "flashcards":
       return <ReviewSpecimen />;
     case "agents":
       return <AgentSpecimen />;
@@ -59,7 +60,7 @@ function NotesSpecimen() {
           <p className={s.math}>$$ x(t) = x_0 + v_0 t + \tfrac12 a t^2 $$</p>
           <p className={s.h2}>## Checklist</p>
           <p>
-            <span className={s.check}>✓</span> Derive from <span className={s.code}>a = dv/dt</span>
+            <span className={s.check}><Icon name="check" /></span> Derive from <span className={s.code}>a = dv/dt</span>
           </p>
           <p>
             <span className={s.box} /> Solve projectile problems 3–6
@@ -97,10 +98,11 @@ function QuizSpecimen() {
         </div>
       </div>
       <div className={s.card}>
-        <p className={s.kicker}>Code</p>
-        <p className={s.q}>Return the dot product of two lists.</p>
-        <pre className={s.pre}>{`def dot(a, b):
-    return sum(x*y for x, y in zip(a, b))`}</pre>
+        <p className={s.kicker}>Code · Predict the output</p>
+        <p className={s.q}>What does this print?</p>
+        <pre className={s.pre}>{`xs = [3, 1, 2]
+xs.sort()
+print(xs[-1] - xs[0])`}</pre>
       </div>
     </div>
   );
@@ -170,12 +172,12 @@ function AgentSpecimen() {
         <ul>
           {steps.map((st) => (
             <li key={st.text} className={st.ok ? "" : s.running}>
-              <span className={s.tick}>{st.ok ? "✓" : "◐"}</span>
+              <span className={s.tick}>{st.ok ? <Icon name="check" /> : <Icon name="half" />}</span>
               {st.text}
             </li>
           ))}
         </ul>
-        <p className={s.trace}>trajectory → agent-trajectories/2026-10-09T14-02.jsonl</p>
+        <p className={s.trace}>trajectory <Icon name="arrow" /> agent-trajectories/2026-10-09T14-02.jsonl</p>
       </div>
     </Frame>
   );
@@ -187,7 +189,7 @@ function SandboxSpecimen() {
       <div className={s.sandbox}>
         <div className={s.runbar}>
           <span>python</span>
-          <span className={s.run}>▶ Run</span>
+          <span className={s.run}><Icon name="play" /> Run</span>
         </div>
         <pre className={s.pre}>{`def falls(t, g=9.81):
     return 0.5 * g * t**2

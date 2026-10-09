@@ -217,7 +217,8 @@
 
 @media (max-width: 1180px) {
   .nav,
-  .about {
+  .about,
+  .secondary {
     display: none;
   }
   .end {

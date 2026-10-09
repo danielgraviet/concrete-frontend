@@ -94,6 +94,29 @@
   align-content: start;
 }
 
+/* First quiz */
+.firstHead {
+  margin-bottom: 48px;
+  row-gap: 16px;
+}
+
+.first {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gutter);
+}
+
+.first li {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding-top: 16px;
+  border-top: 1px solid var(--ink);
+}
+
 /* FAQ */
 .faq {
   grid-column: 7 / span 6;
@@ -162,26 +185,6 @@
   color: var(--signal);
 }
 
-/* Providers */
-.providers {
-  list-style: none;
-  margin: 8px 0;
-  padding: 0;
-  border-top: 1px solid var(--paper);
-}
-
-.providers li {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 16px;
-  padding: 14px 0;
-  border-bottom: 1px solid #333;
-}
-
-.providers span {
-  color: #bdbdbd;
-}
-
 @media (max-width: 900px) {
   .lede,
   .req,
@@ -194,6 +197,13 @@
   .faq {
     margin-top: 48px;
   }
+  .firstHead .side2 {
+    margin-top: 0;
+  }
+  .first {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
   .num {
     grid-column: 1 / span 2;
     font-size: 40px;
@@ -204,8 +214,7 @@
   .stepCode {
     grid-column: 1 / -1;
   }
-  .req div,
-  .providers li {
+  .req div {
     grid-template-columns: 1fr;
     gap: 4px;
   }

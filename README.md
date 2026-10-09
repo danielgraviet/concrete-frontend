@@ -1,6 +1,6 @@
 # Concrete — website
 
-Marketing site for [Concrete](https://github.com/danielgraviet/concrete), a local-first Markdown workspace for learning STEM. Next.js App Router, fully static, with no environment variables, so it deploys to Vercel with zero config.
+Marketing site for [Concrete](https://github.com/danielgraviet/concrete), an app for practicing from your own course material (exam prep for CS and ACME). Next.js App Router, fully static, with no environment variables, so it deploys to Vercel with zero config.
 
 ## Develop
 

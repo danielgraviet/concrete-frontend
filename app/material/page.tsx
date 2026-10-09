@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { FeaturePage } from "@/components/FeaturePage";
 import { featureMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = featureMetadata("notes");
+export const metadata: Metadata = featureMetadata("material");
 
 export default function Page() {
-  return <FeaturePage slug="notes" />;
+  return <FeaturePage slug="material" />;
 }

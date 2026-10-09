@@ -9,8 +9,42 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px 24px;
   padding-bottom: 40px;
+}
+
+/* Audience tag: the first thing the eye lands on. */
+.audience {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.audienceText {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-right: 6px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 14px;
+  background: var(--signal);
+  color: var(--signal-ink);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.strong {
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: inset 0 -0.35em 0 rgba(226, 64, 28, 0.18);
 }
 
 .heroGrid {
@@ -19,14 +53,14 @@
 }
 
 .heroCopy {
-  grid-column: 1 / span 7;
+  grid-column: 1 / span 8;
   display: grid;
   gap: 28px;
 }
 
 /* Smaller than the global .display so the CTAs sit above the fold. */
 .title {
-  font-size: clamp(52px, 8.8vw, 138px);
+  font-size: clamp(42px, 6.4vw, 100px);
 }
 
 .dot {
@@ -40,7 +74,7 @@
 }
 
 .heroArt {
-  grid-column: 9 / span 4;
+  grid-column: 10 / span 3;
 }
 
 /* Section heads */
@@ -55,6 +89,109 @@
 
 .headTitle {
   grid-column: 4 / span 9;
+}
+
+/* Hero requirements line */
+.reqs {
+  margin-top: -8px;
+}
+
+.headLede {
+  margin-top: 24px;
+}
+
+/* Examples */
+.examples {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.example {
+  background: var(--paper);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.exampleHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.course {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.examplePrompt {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.exampleCode {
+  margin: 0;
+  padding: 14px 16px;
+  background: var(--chrome);
+  border-left: 3px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.answer {
+  margin-top: auto;
+  border-top: 1px solid var(--rule);
+  padding-top: 12px;
+}
+
+.answer summary {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  list-style: none;
+}
+
+.answer summary::-webkit-details-marker {
+  display: none;
+}
+
+.answer summary::before {
+  content: "+ ";
+  color: var(--signal);
+}
+
+.answer[open] summary::before {
+  content: "− ";
+}
+
+.answer p {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.footnote {
+  margin-top: 16px;
 }
 
 /* Index */
@@ -122,6 +259,30 @@
 
 .row:hover .rowArrow {
   transform: translateX(6px);
+  color: var(--signal);
+}
+
+/* Extras under the index */
+.extras {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 32px;
+  margin-top: 24px;
+}
+
+.extraLink {
+  font-size: 15px;
+  color: var(--gray-11);
+}
+
+.extraLink b {
+  color: var(--ink);
+  margin-right: 6px;
+}
+
+.extraLink:hover,
+.extraLink:hover b {
   color: var(--signal);
 }
 
@@ -242,6 +403,9 @@
   .principles {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 40px;
+  }
+  .examples {
+    grid-template-columns: 1fr;
   }
 }
 

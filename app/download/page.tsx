@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { CodeLine } from "@/components/CodeLine";
 import { SITE } from "@/lib/features";
 import styles from "./page.module.css";
+import { Icon } from "@/components/Icon";
+import { BringYourOwnAI } from "@/components/BringYourOwnAI";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Download",
@@ -39,6 +42,21 @@ const STEPS: { title: string; note?: string; code: string[] }[] = [
   },
 ];
 
+const FIRST_QUIZ = [
+  {
+    title: "Connect a model",
+    body: "Open Settings › Tutor AI. Pick Claude Code or Codex to use the subscription you already pay for, or paste an OpenRouter key.",
+  },
+  {
+    title: "Add your material",
+    body: "Put lecture notes or PDFs in your vault at ~/Documents/Concrete. One folder per course works well.",
+  },
+  {
+    title: "Generate a quiz",
+    body: "Open a note and use the quiz controls. Add more notes, or a PDF page range, as sources.",
+  },
+];
+
 const TROUBLE = [
   { q: "brew: command not found", a: "Run the PATH command from step 1, or open a new Terminal window." },
   { q: "Node is older than 20", a: "Run brew upgrade node." },
@@ -67,8 +85,8 @@ export default function DownloadPage() {
               <dd>Node.js 20+</dd>
             </div>
             <div>
-              <dt className="label">AI (optional)</dt>
-              <dd>Claude Code, Codex, or OpenRouter</dd>
+              <dt className="label">For quizzes + tutor</dt>
+              <dd>Your Claude or ChatGPT plan, or an OpenRouter key</dd>
             </div>
           </dl>
         </div>
@@ -89,6 +107,52 @@ export default function DownloadPage() {
                     <CodeLine key={c} code={c} />
                   ))}
                 </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="section section--ink">
+        <div className="wrap grid">
+          <div className={styles.side}>
+            <p className="label">Open source</p>
+            <h2 className="h2">You just cloned the source. Help build it.</h2>
+          </div>
+          <div className={styles.side2}>
+            <p className="lede">
+              Concrete is built by {SITE.stats.contributors} contributors who review each other&apos;s code. Pick an open
+              problem, from cloud sync to LLM-as-judge grading, and ship something you can point to.
+            </p>
+            <div className="btn-row">
+              <Link href="/contribute" className="btn btn--solid">
+                Start contributing <span className="arrow"><Icon name="arrow" /></span>
+              </Link>
+              <a href={SITE.github} className="btn btn--line" target="_blank" rel="noreferrer">
+                Star on GitHub <span className="arrow"><Icon name="external" /></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="wrap">
+          <div className={`grid ${styles.firstHead}`}>
+            <div className={styles.side}>
+              <p className="label">Then</p>
+              <h2 className="h2">Your first quiz.</h2>
+            </div>
+            <p className={`lede ${styles.side2}`}>
+              Once the window is open, three steps get you from an empty vault to real practice.
+            </p>
+          </div>
+          <ol className={styles.first}>
+            {FIRST_QUIZ.map((s, i) => (
+              <li key={s.title}>
+                <span className="index">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="h3">{s.title}</h3>
+                <p className="body">{s.body}</p>
               </li>
             ))}
           </ol>
@@ -131,41 +195,14 @@ export default function DownloadPage() {
             <p className={`body ${styles.more}`}>
               Still stuck?{" "}
               <a href={SITE.issues} target="_blank" rel="noreferrer">
-                Open an issue on GitHub ↗
+                Open an issue on GitHub <Icon name="external" />
               </a>
             </p>
           </div>
         </div>
       </section>
 
-      <section className="section section--ink">
-        <div className="wrap grid">
-          <div className={styles.side}>
-            <p className="label">AI features</p>
-            <h2 className="h2">Connect a model.</h2>
-          </div>
-          <div className={styles.side2}>
-            <p className="lede">
-              Quiz generation, tutoring, and agents need a model backend. Pick one under Settings → Tutor AI.
-            </p>
-            <ul className={styles.providers}>
-              <li>
-                <b>Claude Code CLI</b>
-                <span>Logged in (Claude Pro/Max) or with an Anthropic API key</span>
-              </li>
-              <li>
-                <b>Codex CLI</b>
-                <span>Logged in (ChatGPT plan) or with an OpenAI API key</span>
-              </li>
-              <li>
-                <b>OpenRouter</b>
-                <span>API key. Quizzes and tutoring only</span>
-              </li>
-            </ul>
-            <p className="body">Keys stay in Electron&apos;s main process and never reach the renderer.</p>
-          </div>
-        </div>
-      </section>
+      <BringYourOwnAI label="AI features" />
     </>
   );
 }
