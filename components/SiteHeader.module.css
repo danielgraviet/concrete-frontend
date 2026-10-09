@@ -179,6 +179,7 @@
 /* Full-screen index menu (small screens) */
 .menu {
   position: fixed;
+  z-index: 49;
   inset: var(--header-h) 0 0 0;
   background: var(--paper);
   overflow-y: auto;
