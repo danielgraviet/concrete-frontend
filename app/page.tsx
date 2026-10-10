@@ -64,7 +64,7 @@ export default function Home() {
               <span className={styles.tag}>CS</span>
               <span className={styles.tag}>ACME</span>
             </p>
-            <span className="label">v{SITE.version} · macOS · MIT</span>
+            <span className="label">v{SITE.version} · macOS + Linux · MIT</span>
           </div>
 
           <div className={`grid ${styles.heroGrid}`}>
@@ -89,14 +89,14 @@ export default function Home() {
               </p>
               <div className="btn-row">
                 <Link href="/download" className="btn btn--solid">
-                  Download for Mac <span className="arrow"><Icon name="arrow" /></span>
+                  Download for macOS + Linux <span className="arrow"><Icon name="arrow" /></span>
                 </Link>
                 <a href={SITE.github} className="btn btn--line" target="_blank" rel="noreferrer">
                   View on GitHub <span className="arrow"><Icon name="external" /></span>
                 </a>
               </div>
               <p className={`label ${styles.reqs}`}>
-                macOS · Node 20+ · Runs on the AI subscription you already have
+                macOS + Linux · Node 20+ · Runs on the AI subscription you already have
               </p>
             </div>
             <div className={styles.heroArt}>
@@ -249,7 +249,7 @@ export default function Home() {
           <h2 className={`h1 ${styles.ctaTitle}`}>Know what you actually know.</h2>
           <div className={styles.ctaSide}>
             <p className="body">
-              Concrete is an experimental, open-source Mac app. Bring your course material, practice it, and review what
+              Concrete is an experimental, open-source desktop app for macOS and Linux. Bring your course material, practice it, and review what
               didn&apos;t stick.
             </p>
             <div className="btn-row">

@@ -59,7 +59,7 @@ export function SiteFooter() {
 
         <div className={styles.bottom}>
           <span>Concrete — {SITE.tagline}</span>
-          <span className="mono">v{SITE.version} · macOS · MIT</span>
+          <span className="mono">v{SITE.version} · macOS + Linux · MIT</span>
         </div>
       </div>
     </footer>

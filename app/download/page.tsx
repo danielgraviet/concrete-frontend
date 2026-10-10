@@ -10,14 +10,14 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Download",
   description:
-    "Install Concrete on macOS in about five minutes. Runs on the AI subscription you already have.",
+    "Install Concrete on macOS or Linux in about five minutes. Runs on the AI subscription you already have.",
   path: "/download",
 });
 
 const STEPS: { title: string; note?: string; code: string[] }[] = [
   {
-    title: "Install Homebrew",
-    note: "The macOS package manager. It will ask for your password; nothing shows as you type. Already have it? Skip ahead.",
+    title: "Install Homebrew (macOS)",
+    note: "On macOS, Homebrew installs Node.js. It will ask for your password; nothing shows as you type. On Linux, install Node.js 20 or newer with your distribution's package manager, then continue at step 3.",
     code: [
       '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
       "echo 'eval \"$(/opt/homebrew/bin/brew shellenv)\"' >> ~/.zprofile && eval \"$(/opt/homebrew/bin/brew shellenv)\"",
@@ -25,12 +25,12 @@ const STEPS: { title: string; note?: string; code: string[] }[] = [
   },
   {
     title: "Install Node.js",
-    note: "Concrete needs Node 20 or newer. npm comes with it.",
+    note: "Concrete needs Node 20 or newer. npm comes with it. On Linux, you can skip this step if you installed Node.js with your distribution's package manager.",
     code: ["brew install node"],
   },
   {
     title: "Download Concrete",
-    note: "If macOS asks to install the Command Line Developer Tools for git, click Install, then run this again.",
+    note: "On macOS, if you are asked to install the Command Line Developer Tools for git, click Install, then run this again.",
     code: ["git clone https://github.com/danielgraviet/concrete.git && cd concrete"],
   },
   {
@@ -40,7 +40,7 @@ const STEPS: { title: string; note?: string; code: string[] }[] = [
   },
   {
     title: "Launch",
-    note: "The Concrete window opens and creates your vault in ~/Documents/Concrete on first launch. Quit with ⌘Q.",
+    note: "The Concrete window opens and creates your vault in ~/Documents/Concrete on first launch. Quit with ⌘Q on macOS or Ctrl+Q on Linux.",
     code: ["npm run dev"],
   },
 ];
@@ -75,13 +75,13 @@ export default function DownloadPage() {
           <p className={`label ${styles.kicker}`}>Download · v{SITE.version}</p>
           <h1 className={`display ${styles.title}`}>Get Concrete.</h1>
           <p className={`lede ${styles.lede}`}>
-            Concrete is an experimental desktop app for macOS. Install it from source in about five minutes. Open
-            Terminal (⌘ Space, type “Terminal”) and run each step.
+            Concrete is an experimental desktop app for macOS and Linux. Install it from source in about five minutes.
+            Open your terminal and run each step.
           </p>
           <dl className={styles.req}>
             <div>
               <dt className="label">Platform</dt>
-              <dd>macOS</dd>
+              <dd>macOS + Linux</dd>
             </div>
             <div>
               <dt className="label">Runtime</dt>
@@ -174,7 +174,8 @@ export default function DownloadPage() {
             <p className="label">Package</p>
             <h2 className="h2">Build the app.</h2>
             <p className="body">The packaged app is written to release/.</p>
-            <CodeLine code="npm run build && npm run pack:mac" />
+            <CodeLine code="npm run build && npm run pack:mac  # macOS" />
+            <CodeLine code="npm run build && npm run pack:linux  # Linux" />
           </div>
         </div>
       </section>
