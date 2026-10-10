@@ -64,7 +64,6 @@ export default function Home() {
               <span className={styles.tag}>CS</span>
               <span className={styles.tag}>ACME</span>
             </p>
-            <span className="label">v{SITE.version} · macOS · MIT</span>
           </div>
 
           <div className={`grid ${styles.heroGrid}`}>
@@ -95,9 +94,6 @@ export default function Home() {
                   View on GitHub <span className="arrow"><Icon name="external" /></span>
                 </a>
               </div>
-              <p className={`label ${styles.reqs}`}>
-                macOS · Node 20+ · Runs on the AI subscription you already have
-              </p>
             </div>
             <div className={styles.heroArt}>
               <Composition />
