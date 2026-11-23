@@ -31,7 +31,7 @@ const CHALLENGES = [
   {
     area: "Systems",
     title: "Cloud support",
-    body: "Take notes, quizzes, and progress beyond one Mac: accounts, sync across devices, and conflict handling for plain Markdown files.",
+    body: "Take notes, quizzes, and progress beyond one device: accounts, sync across devices, and conflict handling for plain Markdown files.",
   },
   {
     area: "Product · Systems",
