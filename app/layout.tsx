@@ -16,30 +16,16 @@ const mono = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
+const title = "Concrete | Turn your notes into quizzes";
+const description = "Make practice quizzes from your notes and PDFs. Take a quiz, check your answers, and review what you missed.";
+
 export const metadata: Metadata = {
-  // Absolute URLs for link previews (Slack, iMessage, X) must point at the real domain.
   metadataBase: new URL(SITE.url),
-  title: {
-    default: "Concrete — Make your understanding concrete before the exam",
-    template: "%s — Concrete",
-  },
-  description:
-    "Turn your CS and ACME notes into quizzes, code-reading practice, and flashcards. Find the gaps before the exam, the interview, or the deadline.",
+  title: { default: title, template: "%s — Concrete" },
+  description,
   applicationName: SITE.name,
-  openGraph: {
-    type: "website",
-    siteName: SITE.name,
-    url: "/",
-    title: "Concrete — Make your understanding concrete before the exam",
-    description:
-      "Quizzes, code-reading practice, and flashcards from your own CS and ACME notes. Runs on the AI subscription you already have. Free and open source.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Concrete — Make your understanding concrete before the exam",
-    description:
-      "Quizzes, code-reading practice, and flashcards from your own CS and ACME notes. Free and open source.",
-  },
+  openGraph: { type: "website", siteName: SITE.name, url: "/", title, description },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export const viewport: Viewport = {

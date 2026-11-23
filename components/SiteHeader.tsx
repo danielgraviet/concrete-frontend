@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { CORE, EXTRAS } from "@/lib/features";
+import { CORE } from "@/lib/features";
+import { CONCRETE_APP_URL } from "@/lib/app-url";
 import styles from "./SiteHeader.module.css";
 
 export function SiteHeader() {
@@ -39,7 +40,6 @@ export function SiteHeader() {
                   className={`${styles.link} ${active ? styles.active : ""}`}
                   aria-current={active ? "page" : undefined}
                 >
-                  <span className={styles.num}>{f.index}</span>
                   {f.name}
                 </Link>
               );
@@ -47,18 +47,12 @@ export function SiteHeader() {
           </nav>
 
           <div className={styles.end}>
-            <Link
-              href="/contribute"
-              className={`${styles.link} ${styles.about} ${pathname === "/contribute" ? styles.active : ""}`}
-            >
-              Contribute
-            </Link>
-            <Link href="/about" className={`${styles.link} ${styles.secondary} ${pathname === "/about" ? styles.active : ""}`}>
+            <Link href="/about" className={`${styles.link} ${styles.about} ${pathname === "/about" ? styles.active : ""}`}>
               About
             </Link>
-            <Link href="/download" className={styles.cta}>
-              Download
-            </Link>
+            <a href={CONCRETE_APP_URL} className={styles.cta}>
+              Open Concrete
+            </a>
             <button
               type="button"
               className={styles.toggle}
@@ -77,34 +71,15 @@ export function SiteHeader() {
           for this fixed overlay, clipping it to the header height (notably on iOS Safari). */}
       <div id="site-menu" className={`${styles.menu} ${open ? styles.menuOpen : ""}`} hidden={!open}>
         <div className="wrap">
-          <p className="label">Index</p>
           <ul className={styles.menuList}>
-            {[...CORE, ...EXTRAS].map((f) => (
+            {CORE.map((f) => (
               <li key={f.slug}>
                 <Link href={`/${f.slug}`} className={styles.menuItem}>
-                  <span className="index">{f.index}</span>
                   <span className={styles.menuName}>{f.name}</span>
                 </Link>
               </li>
             ))}
-            <li>
-              <Link href="/contribute" className={styles.menuItem}>
-                <span className="index">08</span>
-                <span className={styles.menuName}>Contribute</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className={styles.menuItem}>
-                <span className="index">09</span>
-                <span className={styles.menuName}>About</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="/download" className={styles.menuItem}>
-                <span className="index">10</span>
-                <span className={styles.menuName}>Download</span>
-              </Link>
-            </li>
+            <li><Link href="/about" className={styles.menuItem}><span className={styles.menuName}>About</span></Link></li>
           </ul>
         </div>
       </div>

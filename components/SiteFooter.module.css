@@ -48,12 +48,6 @@
   color: var(--signal);
 }
 
-.num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--gray-8);
-}
-
 .bottom {
   margin-top: 80px;
   padding-top: 16px;

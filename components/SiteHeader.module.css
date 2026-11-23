@@ -80,16 +80,6 @@
   background: var(--signal);
 }
 
-.num {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--gray-8);
-}
-
-.active .num {
-  color: var(--signal);
-}
-
 .end {
   display: flex;
   align-items: center;
@@ -218,8 +208,7 @@
 
 @media (max-width: 1180px) {
   .nav,
-  .about,
-  .secondary {
+  .about {
     display: none;
   }
   .end {
@@ -237,7 +226,5 @@
 }
 
 @media (max-width: 420px) {
-  .cta {
-    display: none;
-  }
+  .cta { padding: 0 10px; font-size: 12px; }
 }

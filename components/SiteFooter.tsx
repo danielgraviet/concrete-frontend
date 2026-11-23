@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { CORE, EXTRAS, SITE } from "@/lib/features";
+import { CORE, SITE } from "@/lib/features";
+import { CONCRETE_APP_URL } from "@/lib/app-url";
 import styles from "./SiteFooter.module.css";
 import { Icon } from "@/components/Icon";
 
@@ -18,7 +19,6 @@ export function SiteFooter() {
               {CORE.map((f) => (
                 <li key={f.slug}>
                   <Link href={`/${f.slug}`}>
-                    <span className={styles.num}>{f.index}</span>
                     {f.name}
                   </Link>
                 </li>
@@ -29,24 +29,10 @@ export function SiteFooter() {
           <div className={styles.col}>
             <p className="label">Concrete</p>
             <ul>
-              {EXTRAS.map((f) => (
-                <li key={f.slug}>
-                  <Link href={`/${f.slug}`}>{f.name}</Link>
-                </li>
-              ))}
+              <li><a href={CONCRETE_APP_URL}>Open Concrete</a></li>
+              <li><Link href="/about">About</Link></li>
               <li>
-                <Link href="/contribute">Contribute</Link>
-              </li>
-              <li>
-                <Link href="/about">About</Link>
-              </li>
-              <li>
-                <Link href="/download">Download</Link>
-              </li>
-              <li>
-                <a href={SITE.github} target="_blank" rel="noreferrer">
-                  GitHub <Icon name="external" />
-                </a>
+                <Link href="/student-access">Student access</Link>
               </li>
               <li>
                 <a href={SITE.issues} target="_blank" rel="noreferrer">
@@ -58,8 +44,7 @@ export function SiteFooter() {
         </div>
 
         <div className={styles.bottom}>
-          <span>Concrete — {SITE.tagline}</span>
-          <span className="mono">v{SITE.version} · macOS · MIT</span>
+          <span>Concrete</span>
         </div>
       </div>
     </footer>

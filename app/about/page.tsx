@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
-    "Why Concrete exists: practice that makes your understanding of CS and ACME material concrete, and the summers of concrete work behind the name.",
+    "Why Concrete exists and how it helps students study from their own notes.",
   path: "/about",
 });
 
@@ -148,9 +148,9 @@ export default function AboutPage() {
                   knowledge that&apos;s actually valuable is concrete: you can remember it, apply it, and build on it.
                 </p>
                 <p className="body">
-                  That&apos;s hard to get from just taking a class. I&apos;d learn an algorithm, a design pattern, a
-                  proof, or a new language&apos;s syntax, move on, and forget it weeks later. What made it stick was quizzing myself and reviewing it over time. Concrete
-                  does that with your CS and ACME material, so you find the gaps while there&apos;s still time.
+                  I&apos;d finish a class, move on, and forget what I learned weeks later. What helped was quizzing
+                  myself and coming back to the things I missed. Concrete makes that easier with the material you
+                  already study, whatever the subject.
                 </p>
               </div>
             </div>

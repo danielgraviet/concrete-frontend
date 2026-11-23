@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 
 // The link-preview card shown by Slack, iMessage, X, LinkedIn, etc.
 // Next uses this for every route that doesn't define its own.
-export const alt = "Concrete: make your understanding concrete. Built for CS and ACME students.";
+export const alt = "Concrete: turn your notes into quizzes.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -24,7 +24,7 @@ const [interMedium, interExtraBold, monoMedium, logoSvg] = await Promise.all([
 
 const dataUri = (svg: string) => `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 
-/** Same 4×4 module field as the home hero (components/Composition.tsx). */
+/** Concrete’s geometric brand mark. */
 function compositionSvg() {
   const q = (r: number) => `<path d="M0 0 H100 A100 100 0 0 1 0 100 Z" fill="${MARK}" transform="rotate(${r} 50 50)"/>`;
   const h = (r: number) => `<path d="M0 100 V50 A50 50 0 0 1 100 50 V100 Z" fill="${MARK}" transform="rotate(${r} 50 50)"/>`;
@@ -64,39 +64,20 @@ export default function OpengraphImage() {
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ fontSize: 26, fontWeight: 500, marginRight: 6 }}>Built for students in</span>
-              {["CS", "ACME"].map((t) => (
-                <span
-                  key={t}
-                  style={{
-                    display: "flex",
-                    background: SIGNAL,
-                    color: "#fff",
-                    fontSize: 28,
-                    fontWeight: 800,
-                    padding: "6px 16px",
-                    letterSpacing: -0.5,
-                  }}
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
-                fontSize: 88,
+                fontSize: 76,
                 fontWeight: 800,
                 lineHeight: 0.94,
                 letterSpacing: -4.4,
               }}
             >
-              <span>Make your</span>
-              <span>understanding</span>
+              <span>Turn your notes</span>
+
               <div style={{ display: "flex" }}>
-                <span>concrete</span>
+                <span>into quizzes</span>
                 <span style={{ color: SIGNAL }}>.</span>
               </div>
             </div>
@@ -115,7 +96,7 @@ export default function OpengraphImage() {
               color: MUTED,
             }}
           >
-            <span>Quizzes · Code reading · Flashcards</span>
+            <span>Practice from your notes and PDFs</span>
             <span style={{ color: INK }}>useconcrete.app</span>
           </div>
         </div>
