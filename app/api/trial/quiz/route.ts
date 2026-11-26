@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
 import { quizDocumentFromModelText } from "@/lib/quiz/quizDocumentFromModelText";
 import { quizDocumentToMarkdown } from "@/lib/quiz/guardrails";
-import { parseQuizMarkdown } from "@/lib/quiz/parseQuizMarkdown";
 import { buildQuizGenerationUserPrompt, QUIZ_GENERATION_SYSTEM_PROMPT } from "@/lib/quiz/quizGenerationPrompt";
-import { hasSameOrigin } from "@/lib/student-access/auth";
-import { completeTrial, getTrial, releaseTrial, reserveTrial, verifyTrialUser } from "@/lib/trial/server";
+import { hasSameOrigin, verifyTrialUser } from "@/lib/trial/server";
 
 export const maxDuration = 120;
 
@@ -19,9 +17,8 @@ const TRIAL_MCQ_COUNT = 5;
 export async function GET(request: Request) {
   const user = await verifyTrialUser(request);
   if (!user) return NextResponse.json({ error: "Sign in with a verified email first." }, { status: 401 });
-  const trial = await getTrial(user.uid);
-  if (trial?.status !== "done" || !trial.quiz_markdown) return NextResponse.json({ used: false });
-  return NextResponse.json({ used: true, quiz: parseQuizMarkdown(trial.quiz_markdown) });
+  // TODO: one-free-quiz tracking was in Neon; move it to Firestore. Until then every account can generate.
+  return NextResponse.json({ used: false });
 }
 
 async function callProxy(token: string, model: string, messages: Array<{ role: string; content: string }>) {
@@ -59,10 +56,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: `Keep it under ${MAX_NOTES.toLocaleString()} characters for the free quiz.` }, { status: 400 });
   }
 
-  if (!(await reserveTrial(user.uid, user.email))) {
-    return NextResponse.json({ error: "You've already made your free quiz. Make more in Concrete.", used: true }, { status: 409 });
-  }
-
   const title = topic || "My notes";
   const sourcePath = `Trial/${title.replace(/[\\/:*?"<>|]/g, "-")}.md`;
   const messages = [
@@ -85,10 +78,8 @@ export async function POST(request: Request) {
     quiz.questions = quiz.questions.filter((q) => q.type === "mcq");
     if (!quiz.questions.length) throw new Error("Model response had no multiple-choice questions");
     const markdown = quizDocumentToMarkdown(quiz, quiz.title);
-    await completeTrial(user.uid, quiz.title, markdown);
     return NextResponse.json({ quiz, markdown, sourcePath });
   } catch (error) {
-    await releaseTrial(user.uid).catch(() => {});
     console.error("Trial quiz generation failed", error);
     if ((error as { code?: string }).code === "quota_exceeded") {
       return NextResponse.json({ error: "This account has used its AI requests for the month." }, { status: 429 });

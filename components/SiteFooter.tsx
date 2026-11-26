@@ -32,9 +32,6 @@ export function SiteFooter() {
               <li><a href={CONCRETE_APP_URL}>Open Concrete</a></li>
               <li><Link href="/about">About</Link></li>
               <li>
-                <Link href="/student-access">Student access</Link>
-              </li>
-              <li>
                 <a href={SITE.issues} target="_blank" rel="noreferrer">
                   Report a bug <Icon name="external" />
                 </a>

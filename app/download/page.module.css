@@ -100,17 +100,8 @@
   border-top: 1px solid var(--ink);
 }
 
-.sponsored {
-  margin-top: 32px;
-}
 
-.sponsored a {
-  border-bottom: 1px solid currentColor;
-}
 
-.sponsored a:hover {
-  color: var(--signal);
-}
 
 /* FAQ */
 .faq {

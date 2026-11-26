@@ -124,10 +124,6 @@ export default function DownloadPage() {
               </li>
             ))}
           </ol>
-          <p className={`body ${styles.sponsored}`}>
-            Enrolled in a class? Claim your sponsored $5 weekly DeepSeek allowance on the{" "}
-            <Link href="/student-access">student access page</Link>.
-          </p>
         </div>
       </section>
 
