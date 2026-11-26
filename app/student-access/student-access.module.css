@@ -1,0 +1,26 @@
+.page { padding: 88px 0 120px; }
+.page h1 { margin-top: 16px; }
+.intro { max-width: 52ch; margin-top: 20px; color: var(--gray-11); font-size: 18px; }
+.content { max-width: 980px; margin-top: 48px; }
+.card { padding: 28px; border: 1px solid var(--rule-strong); background: var(--chrome); }
+.card h2 { margin-bottom: 16px; }
+.copy, .message { margin: 16px 0; max-width: 64ch; color: var(--gray-11); }
+.label { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+.label input { min-width: 0; padding: 12px; border: 1px solid var(--rule-strong); border-radius: 0; background: white; color: var(--ink); font-family: var(--font-sans); font-size: 15px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.primary, .secondary, .danger { padding: 11px 16px; border: 1px solid var(--ink); border-radius: 0; cursor: pointer; font: 500 14px var(--font-sans); }
+.primary { background: var(--ink); color: white; }
+.secondary { background: white; color: var(--ink); }
+.danger { padding: 7px 10px; border-color: #b52d17; background: white; color: #b52d17; }
+.primary:disabled, .secondary:disabled, .danger:disabled { cursor: wait; opacity: .55; }
+.cardHead { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.email { overflow-wrap: anywhere; font-size: 20px; font-weight: 600; }
+.textButton { border: 0; padding: 4px; background: transparent; color: var(--muted); text-decoration: underline; cursor: pointer; }
+.keyBox { margin-top: 24px; padding: 18px; border: 1px solid var(--signal); background: white; }
+.keyBox input { font-family: var(--font-mono); font-size: 12px; }
+.notice { margin-top: 16px; padding: 12px 14px; border-left: 3px solid var(--signal); background: var(--chrome); color: var(--gray-11); }
+.tableWrap { overflow-x: auto; margin-top: 20px; }
+.table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; }
+.table th, .table td { padding: 11px 9px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.table th { color: var(--muted); font: 11px var(--font-mono); text-transform: uppercase; }
+@media (max-width: 650px) { .page { padding: 56px 0 80px; } .card { padding: 18px; } .cardHead { flex-direction: column; } }

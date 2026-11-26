@@ -26,28 +26,7 @@
 
 .workflow { scroll-margin-top: var(--header-h); }
 
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  padding: 0;
-  margin: 32px 0 0;
-  list-style: none;
-  counter-reset: step;
-  border-top: 1px solid var(--ink);
-}
-
-.steps li { counter-increment: step; padding: 24px 26px 0 0; }
-.steps li + li { border-left: 1px solid var(--rule-strong); padding-left: 26px; }
-
-.steps li::before {
-  content: "0" counter(step);
-  color: var(--signal);
-  display: block;
-  font: 13px var(--font-mono);
-  margin-bottom: 16px;
-}
-
-.steps p { margin-top: 12px; max-width: 32ch; }
+.tryLede { margin-top: 12px; max-width: 52ch; }
 .cta { padding: 56px 0; }
 .cta :global(.btn--solid) { background: var(--paper); color: var(--ink); }
 .cta :global(.btn--solid:hover) { background: var(--signal); color: var(--paper); }
@@ -65,8 +44,87 @@
   .title { max-width: 12ch; font-size: clamp(50px, 9vw, 80px); text-wrap: initial; }
 }
 
-@media (max-width: 620px) {
-  .steps { grid-template-columns: 1fr; }
-  .steps li { padding: 20px 0; }
-  .steps li + li { border-left: 0; border-top: 1px solid var(--rule-strong); padding-left: 0; }
+.progress { border-top: 1px solid var(--rule-strong); }
+
+.progressGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(26px, 6vw, 88px);
+}
+
+.progressLede { margin-top: 16px; max-width: 40ch; }
+
+.progressChart {
+  margin: 0;
+  padding: clamp(14px, 3vw, 28px);
+  border: 1px solid var(--ink);
+  background: var(--paper);
+}
+
+.chartCaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.chartSkill { margin-top: 5px; font-size: clamp(18px, 2vw, 24px); font-weight: 700; }
+
+.chartGain {
+  padding: 5px 8px;
+  border: 1px solid var(--ink);
+  background: var(--chrome);
+  font: 13px var(--font-mono);
+}
+
+.attempts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(8px, 2vw, 24px);
+  padding: 0 8px;
+  margin: 18px 0 0;
+  list-style: none;
+  background: repeating-linear-gradient(to bottom, transparent 0 30px, var(--rule) 30px 31px);
+}
+
+.attempt {
+  display: grid;
+  gap: 6px;
+  text-align: center;
+  font: 12px var(--font-mono);
+}
+
+.barTrack {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  height: 124px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.bar {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  width: min(100%, 78px);
+  padding-top: 6px;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.attempt:last-child .bar { background: var(--signal); }
+.attempt:last-child .bar span { background: var(--paper); color: var(--ink); padding: 1px 3px; }
+
+.chartNote {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-strong);
+  color: var(--gray-11);
+  font-size: 13px;
+}
+
+@media (max-width: 860px) {
+  .progressGrid { grid-template-columns: 1fr; }
 }

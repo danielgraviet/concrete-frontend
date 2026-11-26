@@ -1,7 +1,14 @@
 import { Icon } from "@/components/Icon";
 import { QuizPreview } from "@/components/QuizPreview";
+import { TryIt } from "@/components/TryIt";
 import { CONCRETE_APP_URL } from "@/lib/app-url";
 import styles from "./page.module.css";
+
+const PROGRESS_EXAMPLE = [
+  { day: "Mon", score: 40 },
+  { day: "Wed", score: 60 },
+  { day: "Fri", score: 90 },
+];
 
 export default function Home() {
   return (
@@ -19,30 +26,54 @@ export default function Home() {
               <a href={CONCRETE_APP_URL} className="btn btn--solid">
                 Make a quiz <span className="arrow"><Icon name="arrow" /></span>
               </a>
-              <a href="#how-it-works" className={styles.textLink}>How it works</a>
+              <a href="#try-it" className={styles.textLink}>Try it free</a>
             </div>
           </div>
           <QuizPreview />
         </div>
       </section>
 
-      <section id="how-it-works" className={`section section--chrome ${styles.workflow}`}>
+      <section className={`section ${styles.progress}`} aria-labelledby="progress-heading">
+        <div className={`wrap ${styles.progressGrid}`}>
+          <div>
+            <h2 className="h2" id="progress-heading">See what’s getting stronger.</h2>
+            <p className={`lede ${styles.progressLede}`}>
+              Concrete saves your quiz results and breaks them down by skill. See where you’re losing points, focus your review there, and check your next score to see what stuck.
+            </p>
+          </div>
+
+          <figure className={styles.progressChart}>
+            <figcaption className={styles.chartCaption}>
+              <div>
+                <p className="label">Sample skill history</p>
+                <p className={styles.chartSkill}>Claims and evidence</p>
+              </div>
+              <span className={styles.chartGain}>+50 pts</span>
+            </figcaption>
+            <ol className={styles.attempts} aria-label="Quiz scores by day">
+              {PROGRESS_EXAMPLE.map(({ day, score }) => (
+                <li className={styles.attempt} key={day}>
+                  <div className={styles.barTrack}>
+                    <div className={styles.bar} style={{ height: `${score}%` }}>
+                      <span>{score}%</span>
+                    </div>
+                  </div>
+                  <span>{day}</span>
+                </li>
+              ))}
+            </ol>
+            <p className={styles.chartNote}>Monday’s quiz flagged this skill for review. By Friday, the score rose from 40% to 90%.</p>
+          </figure>
+        </div>
+      </section>
+
+      <section id="try-it" className={`section section--chrome ${styles.workflow}`}>
         <div className="wrap">
-          <h2 className="h2">How it works</h2>
-          <ol className={styles.steps}>
-            <li>
-              <h3 className="h3">Bring your material</h3>
-              <p className="body">Use a Markdown note or upload a PDF. Export slides and documents to PDF first.</p>
-            </li>
-            <li>
-              <h3 className="h3">Make a quiz</h3>
-              <p className="body">Choose your material and the kinds of questions you want to practice.</p>
-            </li>
-            <li>
-              <h3 className="h3">Check your answers</h3>
-              <p className="body">Take the quiz, see how you did, and turn missed questions into flashcards.</p>
-            </li>
-          </ol>
+          <h2 className="h2">Try it on your own notes</h2>
+          <p className={`lede ${styles.tryLede}`}>
+            Paste your notes and get a quick quiz made the same way Concrete makes them. You get one free quiz, saved to your new account.
+          </p>
+          <TryIt />
         </div>
       </section>
 

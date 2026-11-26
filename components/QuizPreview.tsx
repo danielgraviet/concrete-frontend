@@ -1,33 +1,51 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "./Icon";
+import { PREVIEW_QUESTIONS } from "./quizPreviewQuestions";
 import styles from "./QuizPreview.module.css";
 
 const SOURCES = [
-  { name: "PDF", icon: "pdf.svg", status: "Ready to use", instruction: "Upload a PDF to make a quiz." },
-  { name: "PowerPoint", icon: "powerpoint.svg", status: "Via PDF", instruction: "Export your PowerPoint deck to PDF, then upload it." },
-  { name: "Markdown", icon: "markdown.svg", status: "Ready to use", instruction: "Start from a Markdown note in Concrete." },
-  { name: "Google Docs", icon: "google-docs.png", status: "Via PDF", instruction: "Export your Google Doc to PDF, then upload it." },
-  { name: "Google Slides", icon: "google-slides.png", status: "Via PDF", instruction: "Export your Google Slides deck to PDF, then upload it." },
-  { name: "Word", icon: "word.svg", status: "Via PDF", instruction: "Export your Word document to PDF, then upload it." },
-  { name: "Excel", icon: "excel.svg", status: "Unsupported", instruction: "Excel workbooks aren't supported yet." },
-  { name: "Audio", icon: "audio.svg", status: "Unsupported", instruction: "Audio uploads aren't supported yet. You can paste a transcript into a note." },
+  { name: "PDF", icon: "pdf.svg" },
+  { name: "PowerPoint", icon: "powerpoint.svg" },
+  { name: "Markdown", icon: "markdown.svg" },
+  { name: "Google Docs", icon: "google-docs.png" },
+  { name: "Google Slides", icon: "google-slides.png" },
+  { name: "Word", icon: "word.svg" },
+  { name: "Excel", icon: "excel.svg" },
+  { name: "Audio", icon: "audio.svg" },
 ];
 
-const ANSWERS = [
-  "To state the main argument",
-  "To list every supporting detail",
-  "To summarize the conclusion",
-];
+const SHUFFLE_DELAY_MS = 4000;
+const REVEAL_DELAY_MS = 900;
 
 export function QuizPreview() {
   const [activeSource, setActiveSource] = useState(0);
-  const [answer, setAnswer] = useState<number | null>(null);
+  const [frontQuiz, setFrontQuiz] = useState<number | null>(null);
+  const [revealedQuiz, setRevealedQuiz] = useState<number | null>(null);
+  const visibleQuiz = frontQuiz ?? 0;
+  const backQuiz = frontQuiz === null
+    ? 1
+    : (frontQuiz + PREVIEW_QUESTIONS.length - 1) % PREVIEW_QUESTIONS.length;
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      if (!document.hidden) {
+        setFrontQuiz(previous => ((previous ?? 0) + 1) % PREVIEW_QUESTIONS.length);
+      }
+    }, SHUFFLE_DELAY_MS);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setRevealedQuiz(visibleQuiz), REVEAL_DELAY_MS);
+    return () => window.clearTimeout(timer);
+  }, [visibleQuiz]);
 
   return (
-    <section className={styles.preview} aria-label="Interactive quiz preview">
+    <section className={styles.preview} aria-label="Quiz comparison preview">
       <p className={`label ${styles.sourceLabel}`}>Choose a format</p>
       <div className={styles.sources} role="group" aria-label="Pick a source format">
         {SOURCES.map((source, index) => (
@@ -40,34 +58,54 @@ export function QuizPreview() {
           >
             <Image src={`/formats/${source.icon}`} alt="" width={28} height={28} unoptimized className={styles.file} />
             <span>{source.name}</span>
-            <small>{source.status}</small>
           </button>
         ))}
       </div>
-      <p className={styles.instruction} aria-live="polite">{SOURCES[activeSource].instruction}</p>
       <div className={styles.connector} aria-hidden="true"><Icon name="arrow" /></div>
-      <div className={styles.quiz}>
-        <p className="label">Sample quiz</p>
-        <h2>What is the main purpose of a thesis statement?</h2>
-        <div className={styles.answers} role="group" aria-label="Choose an answer">
-          {ANSWERS.map((option, index) => (
-            <button
-              key={option}
-              type="button"
-              aria-pressed={answer === index}
-              data-result={answer === index ? index === 0 ? "correct" : "incorrect" : undefined}
-              onClick={() => setAnswer(index)}
+      <div className={styles.deck} data-shuffled={frontQuiz !== null}>
+        {PREVIEW_QUESTIONS.map((quiz, index) => {
+          const isFront = visibleQuiz === index;
+          const isConcrete = index % 2 === 1;
+          const revealed = revealedQuiz === index;
+
+          return (
+            <article
+              key={quiz.prompt}
+              className={styles.quiz}
+              data-front={isFront}
+              data-concrete={isConcrete}
+              data-in-stack={isFront || backQuiz === index}
+              aria-hidden={!isFront}
+              inert={!isFront}
             >
-              <span aria-hidden="true">{String.fromCharCode(65 + index)}</span>
-              {option}
-            </button>
-          ))}
-        </div>
-        <p className={styles.feedback} role="status">
-          {answer === null ? "Pick an answer to try it." : answer === 0
-            ? "Correct. A thesis states the main argument the rest of the essay supports."
-            : "Try again. Think about what the whole essay sets out to show."}
-        </p>
+              <p className={`label ${styles.quizLabel}`}>
+                {isConcrete ? "Concrete quiz" : "Generic AI quiz"} · {quiz.subject}
+              </p>
+              <h2>{quiz.prompt}</h2>
+              {quiz.kind === "choice" && (
+                <ol className={styles.answers} aria-label="Answer choices">
+                  {quiz.options.map((option, optionIndex) => (
+                    <li key={option} data-correct={revealed && quiz.correct === optionIndex}>
+                      <span aria-hidden="true">{String.fromCharCode(65 + optionIndex)}</span>
+                      {option}
+                    </li>
+                  ))}
+                </ol>
+              )}
+              {quiz.kind === "cloze" && (
+                <p className={styles.sample}>
+                  <strong>Answer</strong> · {revealed ? `$${quiz.solution}` : "____"}
+                </p>
+              )}
+              {quiz.kind === "open" && (
+                <p className={styles.sample}><strong>Sample response</strong> · {quiz.response}</p>
+              )}
+              <div className={styles.feedback} data-revealed={revealed}>
+                <p className={styles.sticker}>{quiz.sticker}</p>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );

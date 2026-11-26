@@ -9,6 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@neondatabase/auth": "^0.6.0-beta",
+    "@neondatabase/serverless": "^1.2.0",
+    "firebase": "^13.4.0",
+    "jose": "^6.2.18",
     "next": "16.4.0",
     "react": "19.3.0",
     "react-dom": "19.3.0"

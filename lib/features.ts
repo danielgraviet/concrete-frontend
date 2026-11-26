@@ -246,7 +246,8 @@ export const SITE = {
   goodFirstIssues: "https://github.com/danielgraviet/concrete/labels/good%20first%20issue",
   contributing: "https://github.com/danielgraviet/concrete#contributing",
   learningVision: "https://github.com/danielgraviet/concrete/blob/main/docs/LEARNING_POLICY_VISION.md",
-  version: "0.1.2",
+  version: "0.1.5",
+  dmgUrl: "https://github.com/danielgraviet/concrete/releases/download/v0.1.5/Concrete-0.1.5-arm64.dmg",
   /** Update by hand as the project grows. */
   stats: { contributors: 6, stars: 4, forks: 5 },
 };

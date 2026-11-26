@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { CodeLine } from "@/components/CodeLine";
 import { SITE } from "@/lib/features";
 import styles from "./page.module.css";
 import { Icon } from "@/components/Icon";
@@ -9,39 +8,16 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = pageMetadata({
   title: "Download",
-  description:
-    "Install Concrete on macOS or Linux in about five minutes. Runs on the AI subscription you already have.",
+  description: "Download Concrete for Mac. Runs on the AI subscription you already have.",
   path: "/download",
 });
 
-const STEPS: { title: string; note?: string; code: string[] }[] = [
+const STEPS = [
+  { title: "Download", note: "Click the button above. The .dmg lands in your Downloads folder." },
+  { title: "Install", note: "Open the .dmg and drag Concrete into Applications." },
   {
-    title: "Install Homebrew (macOS)",
-    note: "On macOS, Homebrew installs Node.js. It will ask for your password; nothing shows as you type. On Linux, install Node.js 20 or newer with your distribution's package manager, then continue at step 3.",
-    code: [
-      '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
-      "echo 'eval \"$(/opt/homebrew/bin/brew shellenv)\"' >> ~/.zprofile && eval \"$(/opt/homebrew/bin/brew shellenv)\"",
-    ],
-  },
-  {
-    title: "Install Node.js",
-    note: "Concrete needs Node 20 or newer. npm comes with it. On Linux, you can skip this step if you installed Node.js with your distribution's package manager.",
-    code: ["brew install node"],
-  },
-  {
-    title: "Download Concrete",
-    note: "On macOS, if you are asked to install the Command Line Developer Tools for git, click Install, then run this again.",
-    code: ["git clone https://github.com/danielgraviet/concrete.git && cd concrete"],
-  },
-  {
-    title: "Install dependencies",
-    note: "npm warn lines are fine.",
-    code: ["npm install"],
-  },
-  {
-    title: "Launch",
-    note: "The Concrete window opens and creates your vault in ~/Documents/Concrete on first launch. Quit with ⌘Q on macOS or Ctrl+Q on Linux.",
-    code: ["npm run dev"],
+    title: "Open it",
+    note: "macOS may warn that Concrete is from an unidentified developer. Right-click the app, choose Open, then confirm.",
   },
 ];
 
@@ -61,10 +37,11 @@ const FIRST_QUIZ = [
 ];
 
 const TROUBLE = [
-  { q: "brew: command not found", a: "Run the PATH command from step 1, or open a new Terminal window." },
-  { q: "Node is older than 20", a: "Run brew upgrade node." },
-  { q: "The window never appears", a: "Make sure nothing else is using port 5173, then run npm run dev again." },
-  { q: "npm install permission errors", a: "Don't use sudo. Delete node_modules and run npm install again." },
+  {
+    q: "“Concrete can’t be opened because it is from an unidentified developer”",
+    a: "Right-click (or Control-click) the app in Applications and choose Open, then confirm in the dialog. You only need to do this once.",
+  },
+  { q: "The app won’t open at all", a: "Make sure you dragged Concrete into Applications before opening it, not running it straight from the mounted .dmg." },
 ];
 
 export default function DownloadPage() {
@@ -75,23 +52,16 @@ export default function DownloadPage() {
           <p className={`label ${styles.kicker}`}>Download · v{SITE.version}</p>
           <h1 className={`display ${styles.title}`}>Get Concrete.</h1>
           <p className={`lede ${styles.lede}`}>
-            Concrete is an experimental desktop app for macOS and Linux. Install it from source in about five minutes.
-            Open your terminal and run each step.
+            Concrete is a free, open-source Mac app. Download it, drag it into Applications, and start practicing.
           </p>
-          <dl className={styles.req}>
-            <div>
-              <dt className="label">Platform</dt>
-              <dd>macOS + Linux</dd>
+          <div className={styles.downloadBox}>
+            <div className="btn-row">
+              <a href={SITE.dmgUrl} className="btn btn--solid">
+                Download <span className="arrow"><Icon name="arrow" /></span>
+              </a>
             </div>
-            <div>
-              <dt className="label">Runtime</dt>
-              <dd>Node.js 20+</dd>
-            </div>
-            <div>
-              <dt className="label">For quizzes + tutor</dt>
-              <dd>Your Claude or ChatGPT plan, or an OpenRouter key</dd>
-            </div>
-          </dl>
+            <p className="label">For Mac · Apple Silicon</p>
+          </div>
         </div>
       </section>
 
@@ -105,11 +75,6 @@ export default function DownloadPage() {
                   <h2 className="h3">{s.title}</h2>
                   {s.note && <p className="body">{s.note}</p>}
                 </div>
-                <div className={styles.stepCode}>
-                  {s.code.map((c) => (
-                    <CodeLine key={c} code={c} />
-                  ))}
-                </div>
               </li>
             ))}
           </ol>
@@ -120,7 +85,7 @@ export default function DownloadPage() {
         <div className="wrap grid">
           <div className={styles.side}>
             <p className="label">Open source</p>
-            <h2 className="h2">You just cloned the source. Help build it.</h2>
+            <h2 className="h2">Concrete&apos;s source is public. Help build it.</h2>
           </div>
           <div className={styles.side2}>
             <p className="lede">
@@ -159,24 +124,10 @@ export default function DownloadPage() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="wrap grid">
-          <div className={styles.side}>
-            <p className="label">Later</p>
-            <h2 className="h2">Open it again.</h2>
-            <p className="body">From then on, this is all you need.</p>
-            <CodeLine code="cd concrete && npm run dev" />
-          </div>
-          <div className={styles.side2}>
-            <p className="label">Package</p>
-            <h2 className="h2">Build the app.</h2>
-            <p className="body">The packaged app is written to release/.</p>
-            <CodeLine code="npm run build && npm run pack:mac  # macOS" />
-            <CodeLine code="npm run build && npm run pack:linux  # Linux" />
-          </div>
+          <p className={`body ${styles.sponsored}`}>
+            Enrolled in a class? Claim your sponsored $5 weekly DeepSeek allowance on the{" "}
+            <Link href="/student-access">student access page</Link>.
+          </p>
         </div>
       </section>
 

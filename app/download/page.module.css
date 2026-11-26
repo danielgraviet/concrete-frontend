@@ -17,23 +17,13 @@
   border-top: 1px solid var(--ink);
 }
 
-.req {
+.downloadBox {
   grid-column: 8 / span 5;
-  margin: 0;
-  border-top: 1px solid var(--ink);
-}
-
-.req div {
   display: grid;
-  grid-template-columns: 140px 1fr;
   gap: 16px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.req dd {
-  margin: 0;
-  font-weight: 600;
+  align-content: start;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
 }
 
 /* Steps */
@@ -67,16 +57,9 @@
 }
 
 .stepText {
-  grid-column: 2 / span 4;
+  grid-column: 2 / span 11;
   display: grid;
   gap: 8px;
-}
-
-.stepCode {
-  grid-column: 6 / span 7;
-  display: grid;
-  gap: 8px;
-  min-width: 0;
 }
 
 /* Two-up */
@@ -115,6 +98,18 @@
   align-content: start;
   padding-top: 16px;
   border-top: 1px solid var(--ink);
+}
+
+.sponsored {
+  margin-top: 32px;
+}
+
+.sponsored a {
+  border-bottom: 1px solid currentColor;
+}
+
+.sponsored a:hover {
+  color: var(--signal);
 }
 
 /* FAQ */
@@ -187,7 +182,7 @@
 
 @media (max-width: 900px) {
   .lede,
-  .req,
+  .downloadBox,
   .side,
   .side2,
   .faq {
@@ -210,12 +205,5 @@
   }
   .stepText {
     grid-column: 3 / -1;
-  }
-  .stepCode {
-    grid-column: 1 / -1;
-  }
-  .req div {
-    grid-template-columns: 1fr;
-    gap: 4px;
   }
 }

@@ -1,6 +1,6 @@
 # Concrete — website
 
-Marketing site for [Concrete](https://github.com/danielgraviet/concrete), an app for practicing from your own course material (exam prep for CS and ACME). Next.js App Router, fully static, with no environment variables, so it deploys to Vercel with zero config.
+Website for [Concrete](https://github.com/danielgraviet/concrete), an app for practicing from your own course material (exam prep for CS and ACME). Public marketing pages are static. An optional student-access portal uses Next.js server routes with Neon Auth/Postgres and OpenRouter key management.
 
 ## Develop
 
@@ -15,9 +15,16 @@ npm run lint
 
 1. Push this folder to its own GitHub repo.
 2. In Vercel: **Add New → Project**, import the repo, and keep the detected Next.js defaults.
-3. Deploy. Every push to `main` redeploys, and pull requests get preview URLs.
+3. For the public marketing site only, deploy with the defaults. To enable student access, follow [`STUDENT_ACCESS_SETUP.md`](STUDENT_ACCESS_SETUP.md) and configure Neon and OpenRouter first.
+4. Deploy. Every push to `main` redeploys, and pull requests get preview URLs.
 
 Or from the CLI: `npx vercel` (preview) / `npx vercel --prod`.
+
+## Sponsored student access
+
+The optional `/student-access` page issues a one-time OpenRouter key to a verified `.edu` account. Each key has a $5 weekly limit, expires after 30 days, and receives the configured OpenRouter Guardrail. The instructor dashboard uses the same page and an allowlisted admin email to inspect usage and revoke keys.
+
+Setup instructions, required Neon/Vercel environment variables, the OpenRouter Guardrail configuration, and the one-time database SQL are in [`STUDENT_ACCESS_SETUP.md`](STUDENT_ACCESS_SETUP.md). Do not expose `OPENROUTER_MANAGEMENT_KEY` to browser code or commit it.
 
 ## Structure
 
